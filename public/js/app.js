@@ -875,8 +875,14 @@ module.exports = __webpack_require__(43);
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_chat_scroll__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_chat_scroll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_chat_scroll__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -886,6 +892,10 @@ module.exports = __webpack_require__(43);
 __webpack_require__(11);
 
 window.Vue = __webpack_require__(36);
+// ES6
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_chat_scroll___default.a);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -893,10 +903,10 @@ window.Vue = __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(37));
-Vue.component('message', __webpack_require__(40));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('example', __webpack_require__(37));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('message', __webpack_require__(40));
 
-var app = new Vue({
+var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#app',
     data: {
         message: '',
@@ -42075,6 +42085,75 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (global, factory) {
+	 true ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global['vue-chat-scroll'] = factory());
+}(this, (function () { 'use strict';
+
+/**
+ * @name VueJS vChatScroll (vue-chat-scroll)
+ * @description Monitors an element and scrolls to the bottom if a new child is added
+ * @author Theodore Messinezis <theo@theomessin.com>
+ * @file v-chat-scroll  directive definition
+ */
+
+var scrollToBottom = function scrollToBottom(el) {
+    el.scrollTop = el.scrollHeight;
+};
+
+var vChatScroll = {
+    bind: function bind(el, binding) {
+        var timeout = void 0;
+        var scrolled = false;
+
+        el.addEventListener('scroll', function (e) {
+            if (timeout) window.clearTimeout(timeout);
+            timeout = window.setTimeout(function () {
+                scrolled = el.scrollTop + el.clientHeight + 1 < el.scrollHeight;
+            }, 200);
+        });
+
+        new MutationObserver(function (e) {
+            var config = binding.value || {};
+            var pause = config.always === false && scrolled;
+            if (pause || e[e.length - 1].addedNodes.length != 1) return;
+            scrollToBottom(el);
+        }).observe(el, { childList: true });
+    },
+    inserted: scrollToBottom
+};
+
+/**
+ * @name VueJS vChatScroll (vue-chat-scroll)
+ * @description Monitors an element and scrolls to the bottom if a new child is added
+ * @author Theodore Messinezis <theo@theomessin.com>
+ * @file vue-chat-scroll plugin definition
+ */
+
+var VueChatScroll = {
+    install: function install(Vue, options) {
+        Vue.directive('chat-scroll', vChatScroll);
+    }
+};
+
+if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VueChatScroll);
+}
+
+return VueChatScroll;
+
+})));
+
 
 /***/ })
 /******/ ]);

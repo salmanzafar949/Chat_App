@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -16,7 +15,25 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('message', require('./components/message.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        message: '',
+        chat: {
+            message: []
+        }
+    },
+
+    methods: {
+        send() {
+
+            if (this.message.length != 0) {
+                //console.log(this.message);
+                this.chat.message.push(this.message);
+                this.message = ''
+            }
+        }
+    }
 });

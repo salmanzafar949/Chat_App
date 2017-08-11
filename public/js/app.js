@@ -11012,13 +11012,29 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
     methods: {
         send: function send() {
+            var _this = this;
 
             if (this.message.length != 0) {
                 //console.log(this.message);
                 this.chat.message.push(this.message);
-                this.message = '';
+
+                axios.post('/send', {
+                    message: this.message
+                }).then(function (response) {
+                    console.log(response);
+                    _this.message = '';
+                }).catch(function (error) {
+                    console.log(error);
+                });
             }
         }
+    },
+    mounted: function mounted() {
+        var _this2 = this;
+
+        Echo.private('chat').listen('ChatEvent', function (e) {
+            _this2.chat.message.push(e.message);
+        });
     }
 });
 

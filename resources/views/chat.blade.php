@@ -1,4 +1,3 @@
- @extends('layouts.app')
  {{--  Adding link to style stylesheet  --}}
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -8,7 +7,7 @@
       height: 200px;
   }
 </style>
-@section('content')
+
 <div class="container">
     <div class="row" id="app">
         <div class="offset-4 col-4">
@@ -24,15 +23,5 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
 <script src="{{ asset('js/app.js') }}"></script>
 
-@stop
